@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:m="clr-namespace:MauiApp3"
+       x:Class="MauiApp3.AppShell"
+       x:DataType="m:AppShellViewModel"
+       Title="AppShell"
+       BackgroundColor="White">
+    <Shell.BindingContext>
+        <m:AppShellViewModel />
+    </Shell.BindingContext>
+    <Shell.FlyoutHeader>
+        <Grid
+            RowDefinitions="50"
+            BackgroundColor="{StaticResource PrimaryColor}"
+            Padding="9">
+            <Label Text="FLYOUT HEADER"
+                   TextColor="{StaticResource SecondaryColor}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <Grid RowDefinitions="38"
+              Padding="4">
+            
+        <Button Text="{Binding PinText}"
+                Command="{Binding TogglePinCommand}"/>
+        </Grid>
+    </Shell.FlyoutFooter>
+    
+    
+    <!--#region RegularFyout-->
+    <FlyoutItem
+        Title="Regular Flyout"
+        Icon="dotnet_bot.png"
+        Route="flyoutone">
+        <ShellContent Title="Content-Hello World"
+                      Icon="dotnet_bot.png"
+                      ContentTemplate="{DataTemplate m:MainPage}"
+                      Route="main" />
+        <ShellContent Title="Content-Hello World 2"
+                      Icon="dotnet_bot.png"
+                      ContentTemplate="{DataTemplate m:MainPage}"
+                      Route="mainpage2" />
+    </FlyoutItem>
+    <!--#endregion-->
+
+    <!--#region TabBarVisibleAttempts-->
+    <FlyoutItem Title="MultiItem Flyout"
+                Icon="dotnet_bot.png"
+                Route="flyouttwo"
+                FlyoutDisplayOptions="AsMultipleItems"
+                Shell.TabBarBackgroundColor="HotPink">
+        <ShellContent Title="AsMultipleItems Flyout">
+            <ShellContent.Content>
+                <ContentPage Title="Title Page">
+                    <Label Text="Filler Content to make the flyout more readable"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"/>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+            <ShellContent Title="Content-No Tab Bar"
+                      Icon="dotnet_bot.png"
+                      Shell.TabBarIsVisible="False"
+                      Shell.TabBarBackgroundColor="DarkGray"
+                      Route="notab">
+            <ShellContent.Content>
+                <ContentPage Title="No Tab Bar Page" >
+                    <StackLayout VerticalOptions="CenterAndExpand"
+                                 HorizontalOptions="CenterAndExpand">
+                        <Label Text="SHOULD BE NO TAB BAR HERE"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="Shell.TabBarIsVisible = False"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Shell.TabBarBackgroundColor = DarkGray"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+
+        <ShellContent Title="Content-No Nav Bar"
+                      Icon="dotnet_bot.png"
+                      Shell.NavBarIsVisible="False"
+                      Route="nonav">
+            <ShellContent.Content>
+                <ContentPage Title="No Tab Bar Page">
+                    <StackLayout  VerticalOptions="CenterAndExpand"
+                                  HorizontalOptions="CenterAndExpand">
+                        <Label Text="Navbar and other shell properties applied ok here."
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="Shell.NavBarIsVisible = False"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="Shell.TabBarBackgroundColor = [Inherited from FlyoutItem]"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+    </FlyoutItem>
+    <!--#endregion-->
+    
+    <!--#region ToggleAttempts-->
+    
+    <FlyoutItem Title="Toggleable Flyout-XAML"
+                Icon="dotnet_bot.png"
+                Route="flyoutthree"
+                FlyoutDisplayOptions="{Binding FlyoutDisplay}">
+        <ShellContent Title="Filler Content 1"
+                      Icon="dotnet_bot.png"
+                      Route="filler1">
+            <ShellContent.Content>
+                <ContentPage Title="Filler Page 1">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="FlyoutItem should display as single/multiple based on xaml data bindings"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding FlyoutDisplay}"
+                               Padding="8"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="FlyoutDisplayOptions = {Binding FlyoutDisplay}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+
+        <ShellContent Title="Filler Content 2"
+                      Icon="dotnet_bot.png"
+                      Route="filler2">
+            <ShellContent.Content>
+                <ContentPage Title="Filler Page 2">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="FlyoutItem should display as single/multiple based on xaml data bindings"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding FlyoutDisplay}"
+                               Padding="8"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="FlyoutDisplayOptions = {Binding FlyoutDisplay}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+    </FlyoutItem>
+
+    <MenuItem Text="[DO TOGGLE]"
+              Command="{Binding ToggleDisplayCommand}" />
+
+    <FlyoutItem Title="Toggleable Flyout-Code"
+                x:Name="CodeBehindFlyout"
+                Icon="dotnet_bot.png"
+                Route="flyoutfour">
+        <ShellContent Title="Filler Content 1"
+                      Icon="dotnet_bot.png"
+                      Route="filler1">
+            <ShellContent.Content>
+                <ContentPage Title="Filler Page 1">
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="FlyoutItem should display as single/multiple based on code behind"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding CodeBehindDisplay}"
+                               Padding="8"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="CodeBehindFlyout.FlyoutDisplayOptions = Model.CodeBehindDisplay"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+
+        <ShellContent Title="Filler Content 2"
+                      Icon="dotnet_bot.png"
+                      Route="filler2">
+            <ShellContent.Content>
+                <ContentPage Title="Filler Page 2">
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand">
+                        <Label Text="FlyoutItem should display as single/multiple based on code behind"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding CodeBehindDisplay}"
+                               Padding="8"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="CodeBehindFlyout.FlyoutDisplayOptions = Model.CodeBehindDisplay"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                        
+                    </StackLayout>
+                </ContentPage>
+            </ShellContent.Content>
+        </ShellContent>
+    </FlyoutItem>
+    <MenuItem Text="[CODE TOGGLE]"
+              Command="{Binding ToggleCodeBehindDisplayCommand}" />
+    <!--#endregion-->
+
+    
+</Shell>
